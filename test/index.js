@@ -3,7 +3,7 @@ var test = require('grape'),
 
 
 test('Merge', function(t){
-    t.plan(11);
+    t.plan(12);
 
     t.equal(merge(null, null), null, 'merge nulls');
     t.equal(merge(undefined, undefined), undefined, 'merge undefineds');
@@ -18,6 +18,9 @@ test('Merge', function(t){
     t.deepEqual(merge({a:{b:3}}, {a:{c:4}}), {a:{b:3,c:4}}, 'deep merge');
     t.deepEqual(merge({a:{b:3}}, {a:null}), {a:null}, 'deep merge value types');
     t.deepEqual(merge({a:{b:3}}, {a:new Date()}), {a:new Date()}, 'deep merge with dates');
+
+    var fn = function(){};
+    t.deepEqual(merge({a:{b:3}}, {a:fn}), {a:fn}, 'deep merge functions');
 });
 
 test('Clone', function(t){
